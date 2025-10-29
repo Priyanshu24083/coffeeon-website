@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+.pill {
+  @apply rounded-full px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-colors duration-200;
+}
+
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent layout shift during transitions */
+body {
+  overflow-x: hidden;
+}
+
+.transition-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  display: flex;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.block{
+  flex: 1;
+  height: 100%;
+  background-color: #262626;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.logo-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222;
+
+  pointer-events: none;
+  opacity: 0;
+}
+
+.logo-container{
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+}
+
+/* Loading SVG animations */
+.cup-outline {
+  stroke-dasharray: 4000;
+  stroke-dashoffset: 4000;
+  animation: drawOutline 2s ease-in-out forwards;
+}
+
+@keyframes drawOutline {
+  to { stroke-dashoffset: 0; }
+}
+
+.waves .wave1 {
+  transform-origin: 0 0;
+  animation: waveMove1 2.2s linear infinite;
+}
+.waves .wave2 {
+  transform-origin: 0 0;
+  animation: waveMove2 1.8s linear infinite;
+}
+
+@keyframes waveMove1 { from { transform: translateX(0px); } to { transform: translateX(-180px); } }
+@keyframes waveMove2 { from { transform: translateX(0px); } to { transform: translateX(180px); } }
+
+/* Loading overlay fade */
+.loading-overlay {
+  transition: opacity 700ms cubic-bezier(.2,.9,.2,1), transform 700ms cubic-bezier(.2,.9,.2,1);
+  will-change: opacity, transform;
+}
+.loading-overlay.hidden {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.995);
+  pointer-events: none;
+}
