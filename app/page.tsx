@@ -1,20 +1,23 @@
-// app/page.tsx
 "use client";
 
 import dynamic from "next/dynamic";
 import React from "react";
 import Scroll from "@/components/Scroll";
-import Section3 from "@/components/Section3";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/components/LanguageProvider";
 
-// Dynamically import 3D / heavy components to disable SSR
-const CanvasWithPanels = dynamic(() => import("@/components/Section1"), {
+// ✅ Dynamically import all 3D / GSAP-heavy components to disable SSR
+const Section1 = dynamic(() => import("@/components/Section1"), {
   ssr: false,
   loading: () => null,
 });
 
-const CylindricalTextCanvas = dynamic(() => import("@/components/Cylinder"), {
+const Cylinder = dynamic(() => import("@/components/Cylinder"), {
+  ssr: false,
+  loading: () => null,
+});
+
+const Section3 = dynamic(() => import("@/components/Section3"), {
   ssr: false,
   loading: () => null,
 });
@@ -24,9 +27,19 @@ export default function Page() {
 
   return (
     <div dir={lang === "AR" ? "rtl" : "ltr"}>
-      <CanvasWithPanels />
-      <CylindricalTextCanvas />
+      {/* Hero section — 3D intro animation */}
+      <Section1 />
+
+      {/* Cylinder animation (client-only 3D) */}
+      <Cylinder />
+
+      {/* Scroll-based product showcase */}
+      <Scroll />
+
+      {/* 3D rotating text / tagline */}
       <Section3 key={lang} />
+
+      {/* Footer */}
       <Footer />
     </div>
   );
